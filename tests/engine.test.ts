@@ -4,19 +4,19 @@ import {calculate, normalized, percentiles, scope, defaultFilters, withinTier, t
 const read = (path: string) => JSON.parse(fs.readFileSync(path, 'utf8'));
 const rows: Watershed[] = read('public/data/watersheds.json');
 const config: Indicator[] = read('public/data/indicators.json');
-const excel = read('tests/excel-v03.json');
+const excel = read('tests/excel-rev02.json');
 const report = read('public/data/validation.json');
 const base = scope(rows, defaultFilters);
 const ranked = calculate(base, config);
 assert.equal(rows.length, 2177);
-assert.equal(base.length, 2057);
-assert.equal(scope(rows, {...defaultFilters, centroidOnly: false}).length, 2177);
+assert.equal(base.length, 1910);
+assert.equal(scope(rows, {...defaultFilters, centroidOnly: false}).length, 2028);
 assert.equal(config.length, 25);
-assert.equal(config.filter(i => i.include).length, 8);
+assert.equal(config.filter(i => i.include).length, 6);
 assert.equal(rows.filter(r => r.hasGeometry).length, 2135);
 assert(base.every(r => r.flag02 === 1 && r.hasGeometry));
-assert.equal(defaultFilters.minArea, 0);
-assert.deepEqual([5, 15, 30].map(p => tierBoundary(base.length, p)), [103, 309, 617]);
+assert.equal(defaultFilters.minArea, 1000);
+assert.deepEqual([5, 15, 30].map(p => tierBoundary(base.length, p)), [96, 287, 573]);
 for (const r of base.slice(0, 50)) {
   const filters = {...defaultFilters, wmz: r.wmz, basin: r.basin, catchment: r.catchment, minArea: r.area};
   assert.deepEqual(scope(rows, filters), base.filter(w =>
@@ -46,12 +46,12 @@ assert(maxScoreDifference < 1e-12);
 assert.equal(maxPercentileDifference, 0);
 assert.equal(differentRanks.length, 0);
 assert.equal(differentTiers, 0);
-assert.deepEqual(ranked.slice(0, 5).map(r => r.id), [1205, 1667, 1178, 1454, 1358]);
-assert.equal(ranked.filter(r => withinTier(r, 5, ranked.length)).length, 103);
-assert.equal(tier(103, 2057), 'Tier 1 (Top 5%)');
-assert.equal(tier(104, 2057), 'Tier 2 (Top 15%)');
-assert.equal(tier(310, 2057), 'Tier 3 (Top 30%)');
-assert.equal(tier(618, 2057), 'Tier 4 (Standard)');
+assert.deepEqual(ranked.slice(0, 5).map(r => r.id), [1692, 1430, 696, 517, 886]);
+assert.equal(ranked.filter(r => withinTier(r, 5, ranked.length)).length, 96);
+assert.equal(tier(96, 1910), 'Tier 1 (Top 5%)');
+assert.equal(tier(97, 1910), 'Tier 2 (Top 15%)');
+assert.equal(tier(288, 1910), 'Tier 3 (Top 30%)');
+assert.equal(tier(574, 1910), 'Tier 4 (Standard)');
 const single = config.map(i => ({...i, include: i.id === config[0].id, weight: 1, direction: 'higher' as const}));
 const high = calculate(base, single);
 const low = new Map(calculate(base, single.map(i => ({...i, direction: 'lower'}))).map(r => [r.id, r]));
@@ -69,4 +69,4 @@ if (process.argv.includes('--record')) {
     validatedRanks: ranked.length, validatedTiers: ranked.length, maxScoreDifference, maxPercentileDifference});
   fs.writeFileSync('public/data/validation.json', JSON.stringify(report, null, 2) + '\n');
 }
-console.log('PASS: Excel v03 worksheet parity and dynamic scoring checks.');
+console.log('PASS: Excel rev02 worksheet parity and dynamic scoring checks.');

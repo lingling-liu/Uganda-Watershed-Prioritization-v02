@@ -3,7 +3,7 @@ export interface Indicator {id:string;name:string;pillar:string;include:boolean;
 export interface Watershed {id:number;hybasId:number;wsId:number;wmz:string;basin:string;catchment:string;area:number;hasGeometry:boolean;raw:Record<string,number|null>;sourceAttributes:Record<string,unknown>;flag02:0|1}
 export interface Ranked extends Watershed {score:number|null;rank:number|null;tier:string;percentiles:Record<string,number|null>;missing:string[]}
 export interface Filters {wmz:string;basin:string;catchment:string;minArea:number;centroidOnly:boolean}
-export const defaultFilters:Filters={wmz:'All',basin:'All',catchment:'All',minArea:0,centroidOnly:true};
+export const defaultFilters:Filters={wmz:'All',basin:'All',catchment:'All',minArea:1000,centroidOnly:true};
 export function normalized(indicators:Indicator[]){const sum=indicators.reduce((a,i)=>a+(i.include?i.weight:0),0);return Object.fromEntries(indicators.map(i=>[i.id,i.include&&sum>0?i.weight/sum:0]));}
 export function scope(rows:Watershed[],f:Filters){return rows.filter(r=>r.area>=f.minArea&&(!f.centroidOnly||r.flag02===1)&&(f.wmz==='All'||r.wmz===f.wmz)&&(f.basin==='All'||r.basin===f.basin)&&(f.catchment==='All'||r.catchment===f.catchment));}
 // PERCENTRANK.INC default significance=3; equal values use first ascending index.

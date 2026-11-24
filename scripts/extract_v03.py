@@ -1,4 +1,4 @@
-"""Extract v03 browser data and the separate Excel verification fixture."""
+"""Extract v03 rev02 browser data and the separate Excel verification fixture."""
 import hashlib
 import json
 import re
@@ -10,10 +10,10 @@ import openpyxl
 
 root = Path(__file__).resolve().parents[1]
 out = root / 'public' / 'data'
-book, temp = map(Path, sys.argv[1:3])
+book, baseline = map(Path, sys.argv[1:3])
 values = openpyxl.load_workbook(book, read_only=True, data_only=True)
 formulas = openpyxl.load_workbook(book, read_only=True, data_only=False)
-previous = openpyxl.load_workbook(temp, read_only=True, data_only=True)
+previous = openpyxl.load_workbook(baseline, read_only=True, data_only=True)
 units = ['t/ha/yr', 't/yr', 'ha', 't/ha/yr', 't/ha/yr', 't/yr',
          'kg/ha/yr', 'kg/yr', 'kg/ha/yr', 'kg/yr', 'mm/yr', 'm³/yr',
          't C/ha', 't C', 'persons', 'persons/ha',
@@ -50,9 +50,13 @@ cache = {r[0]: r for r in values['RankScoreData'].iter_rows(min_row=7, values_on
          if isinstance(r[0], int)}
 final = {r[1]: (r[0], r[6], r[7]) for r in values['FinalRank'].iter_rows(
     min_row=9, min_col=8, max_col=15, values_only=True) if isinstance(r[1], int)}
-default_ids = {k for k, r in source.items() if r['Flag02'] == 1 and r['AreaHa'] >= 0}
+scope = values['FilteredData']
+assert [scope[c].value for c in ('B3', 'D3', 'B4')] == ['(All)'] * 3
+min_area, centroid = scope['D4'].value, scope['B5'].value
+assert (min_area, centroid) == (1000, 1)
+default_ids = {k for k, r in source.items() if r['Flag02'] == centroid and r['AreaHa'] >= min_area}
 assert default_ids == cache.keys() == final.keys()
-assert len(default_ids) == 2057 and Counter(r['Flag02'] for r in source.values()) == {1: 2057, 0: 120}
+assert len(default_ids) == scope['F3'].value == 1910 and Counter(r['Flag02'] for r in source.values()) == {1: 2057, 0: 120}
 rows = [
     dict(id=k, hybasId=r['HYBAS_ID'], wsId=r['ws_id'], wmz=r['Water_Mana'] or 'Unassigned',
          basin=r['Basin'] or 'Unassigned', catchment=r['Catchment'] or 'Unassigned',
@@ -79,14 +83,14 @@ top = sorted(final, key=lambda k: (final[k][0], k))[:5]
 report.update(workbook=book.name, workbookSHA256=hashlib.sha256(book.read_bytes()).hexdigest(),
               rawRecords=len(rows), spatialRecords=len(spatial), matched=len(shared),
               workbookOnly=sorted(source.keys() - spatial.keys()), spatialOnly=[], candidateKeys=keys,
-              crossAttributeMismatches=mismatches, defaultIncluded=len(default_ids),
+              crossAttributeMismatches=mismatches, defaultIncluded=len(default_ids), defaultMinArea=min_area, defaultCentroidOnly=True,
               defaultUnmapped=sorted(default_ids - spatial.keys()),
               defaultActiveIndicators=sum(i['include'] for i in indicators),
               defaultPositiveWeightIndicators=sum(i['include'] and i['weight'] > 0 for i in indicators),
               defaultRawWeightSum=values['FinalRank']['E34'].value,
               defaultNormalizedWeightSum=values['FinalRank']['F34'].value,
               topFive=[dict(Lev12_ID=k, rank=final[k][0], score=final[k][1],
-                            tier=final[k][2], tempRank=old_ranks.get(k)) for k in top],
+                            tier=final[k][2], v03Rank=old_ranks.get(k)) for k in top],
               missingValues={i['id']: sum(r['raw'][i['id']] is None for r in rows) for i in indicators},
               missingDefaultValues={i['id']: sum(source[k][i['id']] is None for k in default_ids)
                                     for i in indicators},
@@ -100,7 +104,7 @@ def write(path, data):
 write(out / 'watersheds.json', rows)
 weights = {i['id']: i.pop('excelWeight') for i in indicators}
 write(out / 'indicators.json', indicators)
-write(root / 'tests' / 'excel-v03.json', dict(weights=weights, rows={
+write(root / 'tests' / 'excel-rev02.json', dict(weights=weights, rows={
     k: dict(score=r[80], rank=r[81], tier=final[k][2], percentiles=r[7:80:3])
     for k, r in cache.items()
 }))
