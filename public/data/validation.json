@@ -1,0 +1,333 @@
+{
+  "workbook": "Uganda Ecosystem Services & PBIS - Hydroshed scoring - v03.xlsx",
+  "archive": "Catchments-20261016T002049Z-1-001.zip",
+  "workbookSHA256": "233884f202ae7be66140a9dff83b9edca47b7845b097527792c5b3ab93a92394",
+  "archiveSHA256": "0f097d02b775d0092fa1c1e42bc5043e186fdb9651e65ce6b72e9f32fa6f27cf",
+  "rawRecords": 2177,
+  "spatialRecords": 2135,
+  "matched": 2135,
+  "workbookOnly": [
+    2,
+    6,
+    7,
+    8,
+    9,
+    14,
+    32,
+    41,
+    57,
+    130,
+    156,
+    164,
+    806,
+    842,
+    843,
+    967,
+    1059,
+    1237,
+    1473,
+    1568,
+    1651,
+    1824,
+    1844,
+    1845,
+    1888,
+    1889,
+    1916,
+    2045,
+    2084,
+    2109,
+    2114,
+    2125,
+    2136,
+    2142,
+    2155,
+    2156,
+    2157,
+    2158,
+    2161,
+    2170,
+    2171,
+    2173
+  ],
+  "spatialOnly": [],
+  "joinKey": "Lev12_ID",
+  "candidateKeys": [
+    {
+      "field": "Lev12_ID",
+      "workbookDistinct": 2177,
+      "spatialDistinct": 2135,
+      "sharedDistinct": 2135,
+      "workbookDuplicates": [],
+      "spatialDuplicates": []
+    },
+    {
+      "field": "ws_id",
+      "workbookDistinct": 18,
+      "spatialDistinct": 17,
+      "sharedDistinct": 17,
+      "workbookDuplicates": [
+        {
+          "id": 15,
+          "count": 222
+        },
+        {
+          "id": 0,
+          "count": 42
+        },
+        {
+          "id": 2,
+          "count": 226
+        },
+        {
+          "id": 1,
+          "count": 38
+        },
+        {
+          "id": 7,
+          "count": 202
+        },
+        {
+          "id": 14,
+          "count": 81
+        },
+        {
+          "id": 4,
+          "count": 89
+        },
+        {
+          "id": 16,
+          "count": 7
+        },
+        {
+          "id": 13,
+          "count": 119
+        },
+        {
+          "id": 9,
+          "count": 221
+        },
+        {
+          "id": 6,
+          "count": 185
+        },
+        {
+          "id": 8,
+          "count": 132
+        },
+        {
+          "id": 3,
+          "count": 133
+        },
+        {
+          "id": 11,
+          "count": 119
+        },
+        {
+          "id": 5,
+          "count": 123
+        },
+        {
+          "id": 17,
+          "count": 122
+        },
+        {
+          "id": 10,
+          "count": 85
+        },
+        {
+          "id": 12,
+          "count": 31
+        }
+      ],
+      "spatialDuplicates": [
+        {
+          "id": 15,
+          "count": 222
+        },
+        {
+          "id": 2,
+          "count": 226
+        },
+        {
+          "id": 1,
+          "count": 38
+        },
+        {
+          "id": 7,
+          "count": 202
+        },
+        {
+          "id": 14,
+          "count": 81
+        },
+        {
+          "id": 4,
+          "count": 89
+        },
+        {
+          "id": 16,
+          "count": 7
+        },
+        {
+          "id": 13,
+          "count": 119
+        },
+        {
+          "id": 9,
+          "count": 221
+        },
+        {
+          "id": 6,
+          "count": 185
+        },
+        {
+          "id": 8,
+          "count": 132
+        },
+        {
+          "id": 3,
+          "count": 133
+        },
+        {
+          "id": 11,
+          "count": 119
+        },
+        {
+          "id": 5,
+          "count": 123
+        },
+        {
+          "id": 17,
+          "count": 122
+        },
+        {
+          "id": 10,
+          "count": 85
+        },
+        {
+          "id": 12,
+          "count": 31
+        }
+      ]
+    },
+    {
+      "field": "HYBAS_ID",
+      "workbookDistinct": 2177,
+      "spatialDistinct": 2135,
+      "sharedDistinct": 2135,
+      "workbookDuplicates": [],
+      "spatialDuplicates": []
+    }
+  ],
+  "crossAttributeMismatches": [],
+  "crs": "EPSG:32636",
+  "invalidInputGeometriesRepaired": 6,
+  "wmzInvalidGeometriesRepaired": 8,
+  "defaultIncluded": 2057,
+  "defaultActiveIndicators": 8,
+  "defaultPositiveWeightIndicators": 8,
+  "defaultRawWeightSum": 1.5000000000000002,
+  "topFive": [
+    {
+      "Lev12_ID": 1205,
+      "rank": 1,
+      "score": 0.8930999999999998,
+      "tier": "Tier 1 (Top 5%)",
+      "tempRank": 177
+    },
+    {
+      "Lev12_ID": 1667,
+      "rank": 2,
+      "score": 0.8919666666666666,
+      "tier": "Tier 1 (Top 5%)",
+      "tempRank": 555
+    },
+    {
+      "Lev12_ID": 1178,
+      "rank": 3,
+      "score": 0.8917666666666665,
+      "tier": "Tier 1 (Top 5%)",
+      "tempRank": 299
+    },
+    {
+      "Lev12_ID": 1454,
+      "rank": 4,
+      "score": 0.8844999999999998,
+      "tier": "Tier 1 (Top 5%)",
+      "tempRank": 63
+    },
+    {
+      "Lev12_ID": 1358,
+      "rank": 5,
+      "score": 0.8750333333333332,
+      "tier": "Tier 1 (Top 5%)",
+      "tempRank": 1270
+    }
+  ],
+  "missingValues": {
+    "sed_export_per_ha_v03": 47,
+    "sed_export_Total_v03": 47,
+    "avoided_erosion_AreaHa_v03": 44,
+    "avoided_erosion_per_ha_v03": 44,
+    "avoided_export_per_ha_v03": 47,
+    "avoided_export_Total_v03": 47,
+    "n_total_export_per_ha_v03": 42,
+    "n_total_export_Total_v03": 42,
+    "p_surface_export_per_ha_v03": 42,
+    "p_surface_export_Total_v03": 42,
+    "wyield_mn_v03": 42,
+    "wyield_vol_v03": 42,
+    "c_storage_bas_per_ha_v03": 42,
+    "c_storage_bas_Total_v03": 42,
+    "Pop_Total": 42,
+    "Pop_per_ha": 42,
+    "Wetland_AreaHa": 42,
+    "Wetland_Share_Watershed": 42,
+    "Degraded_Wetland_AreaHa": 42,
+    "Degraded_Wetland_Share_Watershed": 42,
+    "Degraded_Wetland_Share_TotalWetland": 175,
+    "Farmed_AreaHa": 42,
+    "Farmed_Share_Watershed": 42,
+    "Forest_AreaHa": 42,
+    "Forest_Share_Watershed": 42
+  },
+  "missingDefaultValues": {
+    "sed_export_per_ha_v03": 3,
+    "sed_export_Total_v03": 3,
+    "avoided_erosion_AreaHa_v03": 2,
+    "avoided_erosion_per_ha_v03": 2,
+    "avoided_export_per_ha_v03": 3,
+    "avoided_export_Total_v03": 3,
+    "n_total_export_per_ha_v03": 0,
+    "n_total_export_Total_v03": 0,
+    "p_surface_export_per_ha_v03": 0,
+    "p_surface_export_Total_v03": 0,
+    "wyield_mn_v03": 0,
+    "wyield_vol_v03": 0,
+    "c_storage_bas_per_ha_v03": 0,
+    "c_storage_bas_Total_v03": 0,
+    "Pop_Total": 0,
+    "Pop_per_ha": 0,
+    "Wetland_AreaHa": 0,
+    "Wetland_Share_Watershed": 0,
+    "Degraded_Wetland_AreaHa": 0,
+    "Degraded_Wetland_Share_Watershed": 0,
+    "Degraded_Wetland_Share_TotalWetland": 95,
+    "Farmed_AreaHa": 0,
+    "Farmed_Share_Watershed": 0,
+    "Forest_AreaHa": 0,
+    "Forest_Share_Watershed": 0
+  },
+  "defaultMissingAdministrativeLabels": 0,
+  "wmzSourceFeatures": 17,
+  "wmzDissolvedFeatures": 4,
+  "defaultUnmapped": [],
+  "defaultNormalizedWeightSum": 0.9999999999999998,
+  "validatedScores": 2057,
+  "validatedPercentiles": 51425,
+  "validatedRanks": 2057,
+  "validatedTiers": 2057,
+  "maxScoreDifference": 0,
+  "maxPercentileDifference": 0
+}
